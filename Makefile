@@ -39,6 +39,7 @@ test: build
 
 .PHONY: examples
 examples: build
+	@echo "TURNKEY_API_PRIVATE_KEY=$(TURNKEY_API_PRIVATE_KEY)"
 	cargo run -p turnkey_examples --bin whoami
 	cargo run -p turnkey_examples --bin sub_organization
 	cargo run -p turnkey_examples --bin wallet
